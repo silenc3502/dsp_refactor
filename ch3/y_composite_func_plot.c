@@ -6,8 +6,6 @@
 #include <GL/glut.h>
 
 void draw_y_x2(void);
-void draw_big_rect(void);
-void draw_small_rect(void);
 
 void display(void)
 {
@@ -32,10 +30,7 @@ void display(void)
 	glLineWidth(3);
 	draw_y_x2();
 	glLineWidth(1);
-	glColor3f(0, 0, 1);
-	draw_small_rect();
 	glColor3f(0, 1, 0);
-	draw_big_rect();
 	glutSwapBuffers();
 }
 
@@ -61,7 +56,7 @@ void reshape(int w, int h)
 
 void draw_y_x2(void)
 {
-	float t = 0.0, step = 0.001;
+	float t = -100.0, step = 0.01;
 	float x = 0, x2 = 0, y2, cx, cy;
 	float tmp;
 	int cache = 0;
@@ -75,7 +70,7 @@ void draw_y_x2(void)
 		if(t > 100)
 			break;
 
-		y2 = t * t;
+		y2 = 10 * sin(5 * t) + t * t;
 
 		if(cache)
 		{
@@ -89,99 +84,6 @@ void draw_y_x2(void)
 	}
 	glEnd();
 }
-
-void draw_big_rect(void)
-{
-	float t = 0.0, step = 0.5;
-	float x2 = 0, y2, cx, cy;
-	int cache = 0;
-
-	if(t > 100)
-		t = 0.0;
-
-	for(; ; t += step)
-	{
-		if(t > 100)
-			break;
-
-		y2 = t * t;
-
-		if(cache)
-		{
-
-			glBegin(GL_LINES);
-				glVertex2f(cx * 10, 0);
-				glVertex2f(t * 10, 0);
-			glEnd();
-
-			glBegin(GL_LINES);
-				glVertex2f(cx * 10, 0);
-				glVertex2f(cx * 10, y2);
-			glEnd();
-
-			glBegin(GL_LINES);
-				glVertex2f(cx * 10, y2);
-				glVertex2f(t * 10, y2);
-			glEnd();
-
-			glBegin(GL_LINES);
-				glVertex2f(t * 10, y2);
-				glVertex2f(t * 10, y2);
-			glEnd();
-		}
-
-		cache = 1;
-		cx = t;
-		cy = y2;
-	}
-}
-
-void draw_small_rect(void)
-{
-	float t = 0.0, step = 0.0001;
-	float x2 = 0, y2, cx, cy;
-	int cache = 0;
-
-	if(t > 100)
-		t = 0.0;
-
-	for(; ; t += step)
-	{
-		if(t > 100)
-			break;
-
-		y2 = t * t;
-
-		if(cache)
-		{
-
-			glBegin(GL_LINES);
-				glVertex2f(cx * 10, 0);
-				glVertex2f(t * 10, 0);
-			glEnd();
-
-			glBegin(GL_LINES);
-				glVertex2f(cx * 10, 0);
-				glVertex2f(cx * 10, y2);
-			glEnd();
-
-			glBegin(GL_LINES);
-				glVertex2f(cx * 10, y2);
-				glVertex2f(t * 10, y2);
-			glEnd();
-
-			glBegin(GL_LINES);
-				glVertex2f(t * 10, y2);
-				glVertex2f(t * 10, y2);
-			glEnd();
-		}
-
-		cache = 1;
-		cx = t;
-		cy = y2;
-	}
-}
-
 
 int main(int argc, char **argv)
 {

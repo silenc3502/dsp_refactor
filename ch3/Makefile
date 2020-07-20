@@ -1,6 +1,6 @@
 PWD = $(shell pwd)
 
-LIBS = -lGL -lglut
+LIBS = -lGL -lglut -lm
 
 SRCS = $(wildcard *.c)
 TARGET = $(SRCS:%.c=%)
